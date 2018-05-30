@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests;
 
-use App\Task; 
+use App\Task;
 
 class TasksController extends Controller
 {
@@ -16,8 +15,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $tasks = Task::all();
-
+        $tasks = Task::All();
+       
         return view('tasks.index', [
             'tasks' => $tasks,
         ]);
@@ -30,8 +29,7 @@ class TasksController extends Controller
      */
     public function create()
     {
-        public function create()
-        $task = new task;
+        $task = new Task;
 
         return view('tasks.create', [
             'task' => $task,
@@ -46,7 +44,12 @@ class TasksController extends Controller
      */
     public function store(Request $request)
     {
-         $task = new task;
+        
+         $this->validate($request, [
+            'content' => 'required|max:10',
+        ]);
+
+        $task = new Task;
         $task->content = $request->content;
         $task->save();
 
@@ -61,8 +64,8 @@ class TasksController extends Controller
      */
     public function show($id)
     {
-         $task = task::find($id);
-
+         $task = Task::find($id);
+        
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -76,7 +79,7 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
-         $task = task::find($id);
+         $task = Task::find($id);
 
         return view('tasks.edit', [
             'task' => $task,
@@ -92,7 +95,7 @@ class TasksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $task = task::find($id);
+        $task = Task::find($id);
         $task->content = $request->content;
         $task->save();
 
@@ -107,7 +110,7 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
-         $task = task::find($id);
+         $task = Task::find($id);
         $task->delete();
 
         return redirect('/');

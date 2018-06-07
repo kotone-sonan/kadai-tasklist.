@@ -26,4 +26,25 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    
+    public function tasklist()
+    {
+        return $this->hasMany(Task::class);
+    }
+    
+    public function show($id)
+    {
+        $user = User::find($id);
+        $tasklist = $user->tasklist()->orderBy('created_at', 'desc')->paginate(10);
+
+        $data = [
+            'user' => $user,
+            'tasklist' => $tasklist,
+        ];
+
+        $data += $this->counts($user);
+
+        return view('users.show', $data);
+    }
 }
+

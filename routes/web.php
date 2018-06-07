@@ -28,5 +28,5 @@ Route::post('signup', 'Auth\RegisterController@register')->name('signup.post');
 
 Route::group(['middleware' => 'auth'], function () {
 Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
-Route::resource('tasklist', 'TasksController', ['only' => ['store', 'destroy']]);
+Route::resource('task', 'TasksController', ['only' => ['store', 'destroy']]);
 });

@@ -1,5 +1,5 @@
 <ul class="media-list">
-@foreach ($tasklist as $task)
+@foreach ($task as $task)
 <?php $user = $task->user; ?>
 <li class="media">
 <div class="media-left">
@@ -15,7 +15,7 @@
 </div>
 <div>
      @if (Auth::user()->id == $task->user_id)
-                    {!! Form::open(['route' => ['tasklist.destroy', $task->id], 'method' => 'delete']) !!}
+                    {!! Form::open(['route' => ['task.destroy', $task->id], 'method' => 'delete']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-xs']) !!}
                     {!! Form::close() !!}
                 @endif
@@ -25,4 +25,4 @@
 </li>
 @endforeach
 </ul>
-{!! $tasklist->render() !!}
+{!! $task->render() !!}

@@ -18,14 +18,14 @@ class TasksController extends Controller
         $data = [];
         if (\Auth::check()) {
             $user = \Auth::user();
-            $tasklist = $user->tasklist()->orderBy('created_at', 'desc')->paginate(10);
+            $task = $user->task()->orderBy('created_at', 'desc')->paginate(10);
 
             $data = [
                 'user' => $user,
-                'tasklist' => $tasklist,
+                'task' => $task,
             ];
             $data += $this->counts($user);
-            return view('users.show', $data);
+            return view('tasks.index', $data);
         }else {
             return view('welcome');
         }
@@ -59,7 +59,7 @@ class TasksController extends Controller
             'content' => 'required|max:191',
         ]);
         
-        $request->user()->tasklist()->create([
+        $request->user()->task()->create([
             'content' => $request->content,
         ]);
 

@@ -4,7 +4,7 @@
 
     <h1>お仕事</h1>
 
-    @if (count($task) > 0)
+    @if (count($tasks) > 0)
     
     <table class="table table-striped">
             <thead>
